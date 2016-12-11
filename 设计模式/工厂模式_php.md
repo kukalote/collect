@@ -25,21 +25,17 @@
         public $band = '';
         public $tracks = array();
         
-        public function __construct()
-        {}
+        public function __construct() {}
         
-        public function setTitle($title)
-        {
+        public function setTitle($title) {
             $this->title = $title;
         }
         
-        public function setBand($band)
-        {
+        public function setBand($band) {
             $this->band = $band;
         }
         
-        public function addTrack($track)
-        {
+        public function addTrack($track) {
             $this->tracks[] = $track;
         }
     }
@@ -53,8 +49,7 @@
     $cd = new CD();
     $cd->setTitle($title);
     $cd->setBand($band);
-    foreach($tracksFromExternalSource as $track)
-    {
+    foreach($tracksFromExternalSource as $track) {
         $cd->addTrack($track);
     }
 ----
@@ -65,23 +60,19 @@
         public $band = '';
         public $tracks = array();
         
-        public function __construct()
-        {
+        public function __construct() {
             $this->tracks[] = 'DATA TRACK'; 
         }
         
-        public function setTitle($title)
-        {
+        public function setTitle($title) {
             $this->title = $title;
         }
         
-        public function setBand($band)
-        {
+        public function setBand($band) {
             $this->band = $band;
         }
         
-        public function addTrack($track)
-        {
+        public function addTrack($track) {
             $this->tracks[] = $track;
         }
     }
@@ -90,8 +81,7 @@
 
     class CDFactory
     {
-        public static function create($type)
-        {
+        public static function create($type) {
             $class = strtolower($type) . 'CD';
             return new $class;
         }
@@ -103,7 +93,6 @@
     $cd = CDFactory::create($type);
     $cd->setBand($band);
     $cd->setTitle($title);
-    foreach( $tracksFromExternalSource as $track)
-    {
+    foreach( $tracksFromExternalSource as $track) {
         $cd->addTrack($track);
     }
