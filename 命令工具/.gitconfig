@@ -1,0 +1,13 @@
+[user]
+    email = xxx@xx.com 
+    name = username
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    df = diff
+    br = branch
+[color]
+    ui = true
+[credential]
+    helper = cache
