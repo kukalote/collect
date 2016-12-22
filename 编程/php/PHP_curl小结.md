@@ -1,17 +1,18 @@
 PHP_curl小结
 ```php
-		$ch = curl_init($url);
-        $headers = array(
-            "Content-type: text/xml;charset=\"utf-8\"",
-            "Accept: text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1",
-            "Cache-Control: no-cache",
-            "Pragma: no-cache"
-        );
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_ENCODING, "gzip");
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1); //是否抓取跳转后的页面
-        $response = curl_exec($ch);
+<?php
+	$ch = curl_init($url);
+	$headers = array(
+		"Content-type: text/xml;charset=\"utf-8\"",
+		"Accept: text/html, application/xml;q=0.9, application/xhtml+xml, image/png, image/webp, image/jpeg, image/gif, image/x-xbitmap, */*;q=0.1",
+		"Cache-Control: no-cache",
+		"Pragma: no-cache"
+	);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_ENCODING, "gzip");
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1); //是否抓取跳转后的页面
+	$response = curl_exec($ch);
 ```
 
 ### options选项参数详解 :
@@ -46,7 +47,7 @@ PHP_curl小结
 
 `CURLOPT_RESUME_FROM`: 传递一个包含字节偏移地址的长整形参数，(你想转移到的开始表单)。
 
-`CURLOPT_FAILONERROR`: 如果你想让**PHP**在发生错误(**HTTP**代码返回大于等于300)时，不显示，设置这个选项为一人非零值。默认行为是返回一个正常页，忽略代码。
+`CURLOPT_FAILONERROR`: 如果你想让**PHP**在发生错误(**HTTP**代码返回大于等于**300**)时，不显示，设置这个选项为一人非零值。默认行为是返回一个正常页，忽略代码。
 
 `CURLOPT_POST`: 如果你想PHP去做一个正规的**HTTP POST**，设置这个选项为一个非零值。这个**POST**是普通的 `application/x-www-from-urlencoded` 类型，多数被**HTML**表单使用。
 
@@ -58,7 +59,7 @@ PHP_curl小结
 
 `CURLOPT_LOW_SPEED_TIME`: 设置一个长整形数，控制多少秒传送**CURLOPT_LOW_SPEED_LIMIT**规定的字节数。
 
-`CURLOPT_SSLVERSION`: 传递一个包含**SSL**版本的长参数。默认PHP将被它自己努力的确定，在更多的安全中你必须手工设置。
+`CURLOPT_SSLVERSION`: 传递一个包含**SSL**版本的长参数。默认**PHP**将被它自己努力的确定，在更多的安全中你必须手工设置。
 
 `CURLOPT_TIMECONDITION`: 传递一个长参数，指定怎么处理**CURLOPT_TIMEVALUE**参数。你可以设置这个参数为 **TIMECOND_IFMODSINCE** 或 **TIMECOND_ISUNMODSINCE**。这仅用于**HTTP**。
 
