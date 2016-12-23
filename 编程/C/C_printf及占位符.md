@@ -43,6 +43,7 @@ flags | 含义
 
 
 **Type**，也称转换说明（conversion specification/specifier），可以是：
+
 type | 含义
 ----|----
 `a` | 有符号十进制数值 **int**
