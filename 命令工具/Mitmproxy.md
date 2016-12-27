@@ -20,13 +20,13 @@ $ pip install /path/to/source
 
 证书默认都在~/.mitmproxy 目录中，双击 mitmproxy-ca-cert.pem 支持多系统[证书](./Mitmproxy/cert.md)导入按照下图提示：
 
-![安装证书](Mitmproxy_02.png)
+![安装证书](./images/Mitmproxy_02.png)
 
 
 
 接着如图设置HTTP/HTTPS代理。
 
-![proxy setting](Mitmproxy_01.png)
+![proxy setting](./images/Mitmproxy_01.png)
 
 OK，让我们熟悉一下如何使用吧。先测试一下抓HTTPS包。打开iterm输入`mitmproxy`
 
