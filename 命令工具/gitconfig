@@ -11,3 +11,5 @@
     ui = true
 [credential]
     helper = cache
+[core]
+    quotepath = false
