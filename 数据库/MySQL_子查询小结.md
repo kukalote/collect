@@ -38,11 +38,11 @@ MySql_子查询小结
 
  可以使用 `=` `>` `<` `>=` `<=` `<>` 这些操作符对子查询的标量结果进行比较，通常子查询的位置在比较式的右侧：
 
-	SELECT * FROM t1 WHERE column1 = (SELECT MAX(column2) FROM t2)
+		SELECT * FROM t1 WHERE column1 = (SELECT MAX(column2) FROM t2)
 
 2. **子查询与表连接**
 
- 在很多情况下，子查询的效果与 JOIN 表连接很类似，但一些特殊情况下，是必须用子查询而不能用表连接的，如：
+ 在很多情况下，子查询的效果与 **JOIN** 表连接很类似，但一些特殊情况下，是必须用子查询而不能用表连接的，如：
 
 		SELECT * FROM t1 WHERE column1 = (SELECT MAX(column2) FROM t2)
 
@@ -58,9 +58,9 @@ MySql_子查询小结
 
 	SELECT * FROM article WHERE uid IN(SELECT uid FROM user WHERE status=1)
 
-列子查询中使用 IN、ANY、SOME 和 ALL 操作符
+列子查询中使用 **IN**、**ANY**、**SOME** 和 **ALL** 操作符
 
-由于列子查询返回的结果集是 N 行一列，因此不能直接使用 = > < >= <= <> 这些比较标量结果的操作符。在列子查询中可以使用 IN、ANY、SOME 和 ALL 操作符：
+由于列子查询返回的结果集是 N 行一列，因此不能直接使用 `=` `>` `<` `>=` `<=` `<>` 这些比较标量结果的操作符。在列子查询中可以使用 **IN**、**ANY**、**SOME** 和 **ALL** 操作符：
 
 - **IN**：在指定项内，同 IN(项1,项2,…)。
 - **ANY**：与比较操作符联合使用，表示与子查询返回的任何值比较为 TRUE ，则返回 TRUE 。
@@ -94,7 +94,7 @@ MySql_子查询小结
  `NOT IN` 是 `<> ALL` 的别名，二者相同。
  特殊情况
 
- > 如果 table2 为空表，则 ALL 后的结果为 TRUE；
+ > 如果 table2 为空表，则 ALL 后的结果为 TRUE；  
     如果子查询返回如 (0,NULL,1) 这种尽管 s1 比返回结果都大，但有空行的结果，则 ALL 后的结果为 UNKNOWN 。
 
  注意：对于 table2 空表的情况，下面的语句均返回 NULL：
