@@ -79,3 +79,23 @@ SHOW VARIABLES | 服务器配置变量
 
     mysql> SELECT * FROM table 
         -> INTO OUTFILE '/tmp/tutorials.txt';
+
+### 清空表数据
+
+    mysql> DELETE FROM table1 //可以清空部分
+    mysql> TRUNCATE TABLE table1 //清空全部
+
+### 清除表中重复数据 
+
+    //goods 是销售商品与城市的关系表
+    mysql> delete from goods 
+	where  
+	(sale_citys,sale_id) in ( 
+		select sale_citys,sale_id from (
+			SELECT sale_citys,sale_id FROM `goods` GROUP by sale_citys,sale_id HAVING count(1)>1
+		) remove) 
+	and id not in (
+		select * from (
+			SELECT min(id) FROM `goods` GROUP by sale_citys,sale_id HAVING count(1)>1
+		) servive);
+

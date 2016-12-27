@@ -111,6 +111,7 @@ MySql_子查询小结
 	SELECT * FROM table1 WHERE (1,2) = (SELECT column1, column2 FROM table2)
 
 在该例子中，在保证子查询返回单一行数据的前提下，如果 column1=1 且 column2=2 ，则该查询结果为 TRUE。
+
 1. **MySQL 行构造符**
 
  在上面的例子中，WHERE 后面的 (1,2) 被称为行构造符，也可以写作 ROW(1，2)。行构造符通常用于与对能返回两个或两个以上列的子查询进行比较。
