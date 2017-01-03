@@ -107,7 +107,7 @@ Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓�
 
 > .gitmodule 内容调整如下 :
 >
-> [submodule "submoudule_test"]
-	path = DbConnector
-	url =  https://github.com/chaconinc/DbConnector
+> [submodule "submoudule_test"]  
+	path = DbConnector  
+	url =  https://github.com/chaconinc/DbConnector  
 	**branch = stable**
