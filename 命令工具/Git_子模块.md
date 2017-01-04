@@ -105,9 +105,72 @@ Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓�
 
 	$ git submodule update --remote
 
+> 如果不用 `-f .gitmodules` 选项，那么它只会为你做修改。但是在仓库中保留跟踪信息更有意义一些，因为其他人也可以得到同样的效果。
+>
 > .gitmodule 内容调整如下 :
 >
 > [submodule "submoudule_test"]  
 	path = DbConnector  
 	url =  https://github.com/chaconinc/DbConnector  
 	**branch = stable**
+
+这时我们运行 **git status**，Git 会显示子模块中有 “新提交”。
+
+如果你设置了配置选项 status.submodulesummary，Git 也会显示你的子模块的更改摘要：
+
+	$ git config status.submodulesummary 1	//显示子模块更新文件
+	$ git status
+
+这时如果运行 **git diff**，可以看到我们修改了 **.gitmodules** 文件，同时还有几个已拉取的提交需要提交到我们自己的子模块项目中。
+
+我们可以直接看到将要提交到子模块中的提交日志。 提交之后，你也可以运行 `git log -p` 查看这个信息。
+
+	$ git log -p --submodule	//到子模块目录下可看文件调整内容
+
+当运行 `git submodule update --remote` 时，Git 默认会尝试更新所有子模块，所以如果有很多子模块的话，你可以传递想要更新的子模块的名字。
+
+
+### 2. 在子模块上工作
+
+现在我们将通过一个例子来演示如何在子模块与主项目中同时做修改，以及如何同时提交与发布那些修改。
+
+到目前为止，当我们运行 `git submodule update` 从子模块仓库中抓取修改时，Git 将会获得这些改动并更新子目录中的文件，但是会将子仓库留在一个称作 “**游离的 HEAD**” 的状态。 这意味着没有本地工作分支（例如 “**master**”）跟踪改动。 所以你做的任何改动都不会被跟踪。
+
+为了将子模块设置得更容易进入并修改，你需要做两件事。 首先，进入每个子模块并检出其相应的工作分支。 接着，若你做了更改就需要告诉 Git 它该做什么，然后运行 `git submodule update --remote` 来从上游拉取新工作。 你可以选择将它们合并到你的本地工作中，也可以尝试将你的工作变基到新的更改上。
+
+首先，让我们进入子模块目录然后检出一个分支。
+
+	$ git checkout stable
+	Switched to branch 'stable'
+
+然后尝试用 “**merge**” 选项。 为了手动指定它，我们只需给 **update** 添加 `--merge` 选项即可。 这时我们将会看到服务器上的这个子模块有一个改动并且它被合并了进来。
+
+	//在项目主目录运行,从远程更新子模块代码
+	$ git submodule update --remote --merge DbConnector
+
+如果我们进入 DbConnector 目录，可以发现新的改动已经合并入本地 stable 分支。 现在让我们看看当我们对库做一些本地的改动而同时其他人推送另外一个修改到上游时会发生什么。
+
+	$ cd DbConnector/
+	$ vim src/db.c
+	$ git commit -am 'unicode support'	//提交,待上传
+
+如果我们现在更新子模块，就会看到当我们在本地做了更改时上游也有一个改动，我们需要将它并入本地。
+
+	//回到主目录, 
+	$ git submodule update --remote --rebase DbConnector
+
+### 3. 发布子模块改动
+
+现在我们的子模块目录中有一些改动。 其中有一些是我们通过更新从上游引入的，而另一些是本地生成的，由于我们还没有推送它们，所以对任何其他人都不可用。
+
+Git 在推送到主项目前检查所有子模块是否已推送。 **git push** 命令接受可以设置为 “**check**” 或 “**on-demand**” 的 `--recurse-submodules` 参数。 如果任何提交的子模块改动没有推送那么 “**check**” 选项会直接使 **push** 操作失败。
+
+	$ git push --recurse-submodules=check	//然而我这里没有操作成功, 推送前检查
+
+如你所见，它也给我们了一些有用的建议，指导接下来该如何做。 最简单的选项是进入每一个子模块中然后手动推送到远程仓库，确保它们能被外部访问到，之后再次尝试这次推送。
+
+另一个选项是使用 “**on-demand**” 值，它会尝试为你这样做。
+
+	$ git push --recurse-submodules=on-demand	//我这里也没有操作成功,推送操作
+
+Git 进入到 DbConnector 模块中然后在推送主项目前推送了它。 如果那个子模块因为某些原因推送失败，主项目也会推送失败。
