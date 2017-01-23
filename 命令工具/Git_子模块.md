@@ -174,3 +174,5 @@ Git 在推送到主项目前检查所有子模块是否已推送。 **git push**
 	$ git push --recurse-submodules=on-demand	//我这里也没有操作成功,推送操作
 
 Git 进入到 DbConnector 模块中然后在推送主项目前推送了它。 如果那个子模块因为某些原因推送失败，主项目也会推送失败。
+
+### 4. 待续，请查看来源链接
