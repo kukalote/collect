@@ -1,4 +1,4 @@
-# nginx rewrite配置
+# nginx rewrite配置和全局变量
 
 ## Nginx正则匹配符说明
 
@@ -33,29 +33,51 @@
 
 变量名称 | 解释
 ---|---
-`$args` |
-`$content_length` |
-`$content_type` |
-`$document_root` |
-`$document_uri` |
-`$host` |
-`$http_user_agent` |
-`$http_cookie` |
-`$limit_rate` |
-`$request_body_file` |
-`$request_method` |
-`$remote_addr` |
-`$remote_port` |
-`$remote_user` |
-`$request_filename` |
-`$request_uri` |
-`$query_string` |
-`$scheme` |
-`$server_protocol` |
-`$server_addr` |
-`$server_name` |
-`$server_port` |
-`$uri` |
+`$args_PARAMETER` | 客户端请求中 PARAMETER 的值
+`$args` | 请求中的参数
+`$binary_remote_addr` | 远程地址的二进制表示
+`$body_bytes_sent` | 已发送的消息体字节数
+`$content_length` | http 请求中的 "`Content-Length`"
+`$content_type` | 请求中的 "`Content-Type`"
+`$cookie_COOKIE` | 客户端请求中 COOKIE 头域的值
+`$document_root` | 针对当前请求的根路径设置值
+`$document_uri` | 与 $uri 相同
+`$host` | 请求中的 "host";如果请求中没有 host 行， 则等于设置的服务器名
+`$http_HEADER` | HTTP 请求信息里的 HEADER 字段
+`$http_host` | 与 `$host` 相同， 但如果请求信息中没有 Host 行,则可能不同
+`$http_cookie` | 客户端的 cookie 信息
+`$http_referer` | 引用地址
+`$http_user_agent` | 客户端代理信息
+`$http_via` | 最后一个访问服务器的 IP 地址
+`$http_x_forwarded_for` | 相当于网络访问路径
+`$is_args` | 如果 `$args` 有值，则等于 "`?`";否则等于空
+`$limit_rate` | 对链接速率的限制
+`$nginx_version` | 当前 Nginx 服务器版本
+`$pid` | 当前 Nginx 服务器主进程的进程 ID
+`$query_string` | 与 `$args` 相同
+`$remote_addr` | 客户端 IP 地址
+`$remote_port` | 客户端接口
+`$remote_user` | 客户端用户名，认证用
+`$request` | 客户端请求
+`$request_body` | 客户端请求的报文
+`$request_body_file` | 发往后端服务器的本地临时缓存文件名称
+`$request_filename` | 当前请求文件路径名,由 root 或 alias 指令与 URI 请求生成
+`$request_method` | 请求方法，比如 "POST","GET"
+`$request_uri` | 请求的 URI,带参数
+`$scheme` | 所用的协议，比如 http 或者 https,比如 `rewrite^(.+)$$scheme://mysite.name$1redirect`
+`$sent_http_cache_control` |
+`$sent_http_connection` |
+`$sent_http_content_length` |
+`$sent_http_content_type` |
+`$sent_http_keep_alive` |
+`$sent_http_last_modified` |
+`$sent_http_location` |
+`$sent_http_transfer_encoding` |
+`$server_addr` | 服务器地址，如果没有用 listen 指明服务器地址，使用这个变量将发起一次系统调用来获得地址(造成资源浪费)
+`$server_port` | 请求到达的服务器端口
+`$server_protocol` | 请求的协议版本,"`HTTP/1.0`" 或 "`HTTP/1.1`"
+`$server_name` | 服务器名称
+`$uri` | 请求的 URI，可能和最初的值有不同，比如经过重定向之类的
 
 ## 4. 各式各样的 rewrite 示例
 
@@ -223,7 +245,7 @@
 
 > 说明：location的应用也有各种变化，这里的写法就针对了根目录了。
 
-**文件和目录不存在的时重定向**
+**文件和目录不存在时的重定向**
 
 	if (!-e $request_filename) {
 		#proxy_pass http://127.0.0.1; #这里是跳转到代理ip，这个代理ip上有一个监听的web服务器
@@ -287,6 +309,6 @@
 
 	location ~ {
 		if (!-e $request_filename) {
-			   rewrite ^/(.+)$ /index.php last;
+			rewrite ^/(.+)$ /index.php last;
 		}
 	}
