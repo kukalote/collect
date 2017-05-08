@@ -22,10 +22,10 @@
 	}
 ## 2. flag标记有：
 
-- `last` 相当于Apache里的[L]标记，表示完成rewrite，不再匹配后面的规则
-- `break` 与last类似
-- `redirect` 返回302临时重定向
-- `permanent` 返回301永久重定向
+- `last` 终止继续在本 location 块中处理接收到的 URI，并将此处重写的 URI 作为一个新的 URI，使用各 location 块进行处理。该标志将重写后的 URI 重新在 server 块中执行，为重写后的 URI 提供了转入到其他 location 块的机会。
+- `break` 将此处重写的 URI 作为一个新的 URI，在本块中继续进行处理。该标志将重写后的地址在当前的 location 块中执行，不会将新的 URI 转向到其他 location。
+- `redirect` 将重写后的 URI 返回给客户端，状态代码为 302,指明是临时重定向 URI，主要用在 replacement 变量不是以 “http://” 或者 “https://” 开头的情况下。
+- `permanent` 将重写后的 URI 返回给客户端，状态代码为 301，指明是永久重定向 URI。
 
 ## 3. Nginx全局变量
 
