@@ -87,7 +87,7 @@ $ df -h  # 查看 LVM 卷容量
 # /dev/mapper/centos-root   19G  9.1G   10G  47% /
 ```
 
-4. 将**/dev/sda4**挂载到 LVM
+4. 将 **/dev/sda4** 挂载到 LVM
 ```bash
 $ pvcreate /dev/hda4  # 用LVM 初始化物理卷
 $ vgdisplay  # 查看已存在的 VG 信息，获取 vg name，此处以 centos 为例
@@ -100,3 +100,8 @@ $ df -h  # 查看 LVM 卷容量,已调整
 # Filesystem               Size  Used Avail Use% Mounted on
 # /dev/mapper/centos-root   29G  7.1G   22G  25% /
 ```
+注意 :
+> 如果 **resize2fs** 提示异常，可以使用 **xfs_growfs** 命令替换
+> ```bash
+> $ xfs_growfs /dev/centos/root
+> ```
