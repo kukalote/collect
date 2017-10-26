@@ -1,6 +1,6 @@
 ### Mac 快捷键
 
-功能 | 快捷键 
+功能 | 快捷键
 ----|----
 Mission | Ctrl + 向下键
 隐藏Dock | Alt + Cmd + D
@@ -25,7 +25,9 @@ Ctrl + D | 向后删除字符(相当于 delete 键)
 Ctrl + H | 向前删除字符 ( 相当于 删除键 )
 Ctrl + B | 向后 ( 左 ) 移动一字符
 Ctrl + F | 向前 ( 右 ) 移动一字符
-Ctrl + R | 搜索最近命令
+Ctrl + R | 搜索历史命令(Linux)
+Ctrl + S | 冻结终端(Linux)
+Ctrl + Q | 恢复冻结终端 (Linux)
 
 
 
