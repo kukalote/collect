@@ -125,10 +125,10 @@ PREV | 仅在 COMMITTED 提交前的版本
 
     //本地修改与最近版本比较
     svn diff filename
-    
+
     //本地个性与指定版本比较
     svn diff -r version1 filename
-    
+
     //查看两版本间修改处
     svn diff -r version1:version2 filename
 
@@ -159,22 +159,23 @@ PREV | 仅在 COMMITTED 提交前的版本
 ----|---
 -r [--revision] ARG | ()一些命令也可以取 `ARG1:ARG2` 范围) ARG 格式如[续表](#extra_table_1)
 -q [--quiet]| 只显示概况，不显示具体提交细节
--v [--verbose]| 显示具体提交细节 
+-v [--verbose]| 显示具体提交细节
 -l [--limit] ARG | 最大输出日志条数
+--copy-on-stop | 查看创建分支以后的提交
 
 
-    svn log 文件A  
-    
-    //搜索10条数据   
-    svn log -l 10     
-    
-    //显示提交详情(-q : 提交概括)   
-    svn log -l 10 -v     
-    
+    svn log 文件A
+
+    //搜索10条数据
+    svn log -l 10
+
+    //显示提交详情(-q : 提交概括)
+    svn log -l 10 -v
+
     //用时间作条件进行版本比较
     svn log -r {2016-02-04}:{2016-04-18} -l 100
-    
-**为什么svn log 不能看到刚提交的文件**    
+
+**为什么svn log 不能看到刚提交的文件**
 svn提交时只是对提交的文件和目录修订了版本号，而这些文件和目录的父目录仍然保持老的版本号，而svn log缺省情况下是获取目录当前版本的历史，所以没有显示新提交的改变；要解决这个问题，svn update或者使用svn log -r LATESTreversion2.
 ####[svn status `(stat, st)`](id:st)
 版本状态(动态)
@@ -183,9 +184,9 @@ svn提交时只是对提交的文件和目录修订了版本号，而这些文�
 ----|---
 -u [--show-updates] | 展示更新信息
 -q [--quiet]| 只显示概况，不显示具体提交细节
--v [--verbose]| 显示具体提交细节 
+-v [--verbose]| 显示具体提交细节
 
-    svn st 目录名|文件名  
+    svn st 目录名|文件名
     
 #### [svn import](id:import)
 
@@ -217,9 +218,13 @@ svn提交时只是对提交的文件和目录修订了版本号，而这些文�
 
 
 
-####[svn merge `(stat, st)`](id:merge)
-
-
+####[svn merge](id:merge)
+将主干版本更新到当前分支
+```bash
+# 分支起始版本假定为 100
+$ cd branches_dir
+$ svn merge -r 100:HEAD https://svn.xxx.com/apt.xxx.com/trunk
+```
 
 
 ####[svn revert](id:revert)
