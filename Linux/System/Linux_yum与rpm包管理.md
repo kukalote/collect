@@ -30,9 +30,9 @@ $ yum groupupdate group1 # 升级程序组[group1]
 
 #### 删除程序
 ```bash
-yum remove package1 # 删除程序包[package1]
-yum groupremove group1 # 删除程序组[group1]
-yum deplist package1 # 查看程序[package1]依赖情况
+$ yum remove package1 # 删除程序包[package1]
+$ yum groupremove group1 # 删除程序组[group1]
+$ yum deplist package1 # 查看程序[package1]依赖情况
 ```
 
 #### 清除缓存
@@ -141,7 +141,7 @@ $ rpm -Uvh file.rpm # 注：这是用来升级一个rpm 包
 $ rpm -ivh --replacepkgs file.rpm 
 $ rpm -ivh --test file.rpm
 $ rpm -Uvh --oldpackage file.rpm
-rpm -ivh --relocate /=/opt/gaim file.rpm
+$ rpm -ivh --relocate /=/opt/gaim file.rpm
 ```
 >Tips： **`--replacepkgs`** 参数是以已安装的软件再安装一次；有时没有太大的必要；
 >测试安装参数 **`--test`** ，用来检查依赖关系；并不是真正的安装；
