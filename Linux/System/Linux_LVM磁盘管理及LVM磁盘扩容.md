@@ -46,6 +46,30 @@ $ rpm –qa|grep lvm
 # 输出 : lvm-1.0.3-4
 ```
 
+## 查看当前磁盘信息常用命令
+
+```bash
+# 列出在存储设备
+$ lsblk
+NAME            MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda               8:0    0   30G  0 disk 
+├─sda1            8:1    0  500M  0 part /boot
+├─sda2            8:2    0  7.5G  0 part 
+│ ├─centos-root 253:0    0 26.7G  0 lvm  /
+│ └─centos-swap 253:1    0  820M  0 lvm  [SWAP]
+└─sda3            8:3    0   22G  0 part /var
+sdb               8:16   0   20G  0 disk 
+└─sdb1            8:17   0   20G  0 part 
+  └─centos-root 253:0    0 26.7G  0 lvm  /
+  
+# 输出分区表信息
+$ fdisl -l 
+
+# 查看磁盘容量 
+$ df -h
+
+```
+
 ## 创建和管理 LVM
 
 1. 查看当前系统的LVM磁盘, 属于LVM的分区System值为 *Linux LVM*
@@ -59,18 +83,19 @@ $ fdisk -l
 ```
 2. 将新加入的，*/dev/sda4* 加入LVM
 ```bash
-$ fdisk /dev/sda	# 对硬盘分区表重新处理
-$ n  # 新建分区(如果是/dev/sdb,操作类同)
- > $ p  # 创建主分区
- > $ 4  # 创建第四分区
- > $ 回车  # 起始柱，默认就好
- > $ +10G  # 这个可以自己跟据个人情况调整
-$ t  # 调整分区格式
- > $ 8e  #LVM的分区格式为(Linux LVM,即 8e)
-$ p  # 查看当前分区表
-$ w  # 保存当前分区表
-$ partprobe  # 立即加载当前分区表
-$ mkfs -t ext3 /dev/sda4  # 格式化分区
+$  fdisk /dev/sda	# 对硬盘分区表重新处理
+>  n  # 新建分区(如果是/dev/sdb,操作类同)
+>  p  # 创建主分区
+>   4  # 创建第四分区
+>  回车  # 起始柱，默认就好
+>  +10G  # 如果想用整个分区空间，可直接回车
+>  t  # 调整分区格式
+>  8e  #LVM的分区格式为(Linux LVM,即 8e)
+>  p  # 查看当前分区表
+>  w  # 保存当前分区表
+
+$  partprobe  # 立即加载当前分区表
+$  mkfs -t ext3 /dev/sda4  # 格式化分区
 ```
 3. 查看当前分区表
 ```bash
@@ -89,11 +114,11 @@ $ df -h  # 查看 LVM 卷容量
 
 4. 将 **/dev/sda4** 挂载到 LVM
 ```bash
-$ pvcreate /dev/hda4  # 用LVM 初始化物理卷
+$ pvcreate /dev/sda4  # 将sda4添加到物理磁盘
 $ vgdisplay  # 查看已存在的 VG 信息，获取 vg name，此处以 centos 为例
-$ vgextend centos /dev/hda4  # 添加物理卷到卷组
+$ vgextend centos /dev/sda4  # 将sda4 分区增加到虚拟磁盘(组)centos下
 $ lvdisplay  # 查看已存在 lv(逻辑卷) 信息，同样获取 lv name, 此处以 root 为例
-$ lvextend -L +10G /dev/centos/root  # 添加新空间至逻辑卷
+$ lvextend -L +10G /dev/centos/root  # 将虚拟磁盘中10G空间共享给root目录，只能小于共享磁盘可用容量
 $ resize2fs /dev/centos/root  # 重置 LVM 卷空间大小
 $ df -h  # 查看 LVM 卷容量,已调整
 # 输出

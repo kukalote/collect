@@ -76,3 +76,7 @@ awk program here …
 **`-l ext`**
 **`--load ext`**
 > 加载 ext 动态扩展。这个选项将以 **AWKLIBPATH** 为环境变量搜索库文件。类似程序中用到的 @load 关键字。
+
+**`-L[value]`**
+**`--lint[=value]`**
+> 
