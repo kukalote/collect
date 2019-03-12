@@ -1,5 +1,8 @@
 # Mysql5.7修改roo密码
 
+环境 : ubuntu 16.04
+数据库版本 : mysql  Ver 14.14 Distrib 5.7.22
+
 #### Stop MySQL
 ```bash
 sudo service mysql stop
@@ -37,3 +40,31 @@ sudo /etc/init.d/mysql stop
 sudo /etc/init.d/mysql start # reset mysql 
 mysql -u root -p   # try login to database
 ```
+
+环境 : CentOS Linux release 7.5.1804 (Core)
+数据库版本 : mysql  Ver 14.14 Distrib 5.7.22
+
+#### 查找 mysql 密码
+mysql5.7.6以后的版本在启动数据库的时候，会生成密码放到日志文件里，可从从日志获取：
+```bash
+$ cat /var/log/mysqld.log | grep 'password'
+```
+
+#### 设置密码
+```sql
+$ mysql -u root -p
+$ set password='Rootroot123@';
+```
+ 
+####  查看mysql 密码设置
+```sql
+$ show variables like 'vali%';
+$ set global validate_password_length=8; -- 设置密码最小长度
+```
+变量 | 默认值 | 含义
+----|----| ---
+validate_password_length             | 8 | 密码长度
+validate_password_mixed_case_count   | 1 |  大小写混写最小长度
+validate_password_number_count       | 1 | 数字最小长度
+validate_password_policy             | MEDIUM | 密码等级
+validate_password_special_char_count | 1 | 特殊符号最小长度
