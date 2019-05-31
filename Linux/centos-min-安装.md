@@ -91,8 +91,8 @@ $ yum -y remove mysql57-community-release-el7-10.noarch  #因为安装了Yum Rep
 **PHP72**
 ```bash
 $ rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-$ yum install php72w  72w-fpm.x86_64
-$ yum install php72w-bcmath.x86_64 php72w-cli.x86_64 php72w-common.x86_64 php72w-dba.x86_64 php72w-devel.x86_64 php php72w-imap.x86_64 php72w-mbstring.x86_64 php72w-mysql.x86_64 php72w-opcache.x86_64 php72w-pdo.x86_64 php72w-xml.x86_64 php72w-pecl-memcached.x86_64 php72w-pecl-redis.x86_64 php72w-pecl-xdebug.x86_64
+$ yum install php72w  php72w-fpm.x86_64
+$ yum install php72w-cli.x86_64 php72w-common.x86_64 php72w-devel.x86_64 php72w-bcmath.x86_64 php72w-dba.x86_64 php72w-imap.x86_64 php72w-mbstring.x86_64 php72w-mysql.x86_64 php72w-opcache.x86_64 php72w-pdo.x86_64 php72w-xml.x86_64 php72w-pecl-memcached.x86_64 php72w-pecl-redis.x86_64 php72w-pecl-xdebug.x86_64
 # 安装 composer
 $ curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
