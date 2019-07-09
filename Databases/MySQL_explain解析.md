@@ -21,7 +21,7 @@ type | access_type | 链接类型
 possible_keys | possible_keys | 可能使用的索引
 key | key | 实际使用的索引
 key_len | key_length | 所用索引的长度
-ref | ref | 与索引相比的列
+ref | ref | 与索引相比的列(非惟一索引) 
 rows | rows | 评估检测的数据行
 filtered | filtered | 条件过滤行据点百分比(Percentage of rows filtered by table condition)
 Extra | None | 附加信息
@@ -73,7 +73,7 @@ UNCACHEABLE UNION  | cacheable (false)  | 不能缓存的子句使用Union二次
 	从查询匹配的记录中分区，值为NULL属于非分区表。
 	
 > The partitions from which records would be matched by the query. The value is NULL for nonpartitioned tables. 
-	
+
 - **type (JSON name: access_type)**
 
 	关联类型.
@@ -85,7 +85,7 @@ UNCACHEABLE UNION  | cacheable (false)  | 不能缓存的子句使用Union二次
 > The possible_keys column indicates the indexes from which MySQL can choose to find the rows in this table. Note that this column is totally independent of the order of the tables as displayed in the output from EXPLAIN. That means that some of the keys in possible_keys might not be usable in practice with the generated table order.
 >
 > If this column is NULL (or undefined in JSON-formatted output), there are no relevant indexes. In this case, you may be able to improve the performance of your query by examining the WHERE clause to check whether it refers to some column or columns that would be suitable for indexing. If so, create an appropriate index and check the query with EXPLAIN again. 
-	
+
 - **key (JSON name: key)**
 key字段表示 MySQL实际使用的字段(索引)。如果 MySQL 决定使用 possible_keys 中某个索引检索数据，那这个索引就会列在这里。
 可能这里显示的 key 并不是 possible_keys 中的值。如果 possible_keys 中没有适合检索数据的索引，这是可能发生的，但所有查询中搜索到的字段都是其他索引。也就是说，被指定的索引涵盖了被选择的字段，所以尽管它没用于确定检索哪些行，但索引扫描的数据比数据行扫描更有效。
@@ -102,7 +102,7 @@ MySQL 中强制使用或忽略 possible_keys 中列，可以在查询中使用 F
 > To force MySQL to use or ignore an index listed in the possible_keys column, use FORCE INDEX, USE INDEX, or IGNORE INDEX in your query. See  [Section 8.9.4, “Index Hints”](https://dev.mysql.com/doc/refman/5.7/en/index-hints.html) .
 >
 >For MyISAM tables, running ANALYZE TABLE helps the optimizer choose better indexes. For MyISAM tables, myisamchk --analyze does the same. See [Section 13.7.2.1, “ANALYZE TABLE Syntax”](https://dev.mysql.com/doc/refman/5.7/en/analyze-table.html) , and [Section 7.6, “MyISAM Table Maintenance and Crash Recovery”](https://dev.mysql.com/doc/refman/5.7/en/myisam-table-maintenance.html) . 
-	
+
 - **key_len (JSON name: key_length)**
 key_len 列表示 MySQL 决定使用 key 的长度。key_len 的值让你了解 MySQL 实际使用复合索引的长度。如果 key 比如是 NULL，那 key_len 也会显示为 NULL。
 由于 key 的存储格式，这个 key 为 NULL 的列键长将比 NOT NULL 的列大。
@@ -110,7 +110,7 @@ key_len 列表示 MySQL 决定使用 key 的长度。key_len 的值让你了解 
 >The key_len column indicates the length of the key that MySQL decided to use. The value of key_len enables you to determine how many parts of a multiple-part key MySQL actually uses. If the key column says NULL, the len_len column also says NULL.
 >
 >Due to the key storage format, the key length is one greater for a column that can be NULL than for a NOT NULL column. 
-	
+
 - **ref (JSON name: ref)**
 
  指出对 key 列所选择的索引的查找方式，常见的值有 const, func, NULL, 具体字段名。当 key 列为 NULL ，即不使用索引时，此值也相应的为 NULL 。
@@ -142,7 +142,7 @@ filtered 列表示预估查询条件检索的行数在表中所占百分比。�
 >This column contains additional information about how MySQL resolves the query. For descriptions of the different values, see EXPLAIN Extra Information.
 >
 >There is no single JSON property corresponding to the Extra column; however, values that can occur in this column are exposed as JSON properties, or as the text of the message property. 
-	
+
 #### 连接类型解释
 这个字段类型是用来描述表是如何连接的。存取类型的值输出为JSON 格式，以下列表为连接类型及描述，排序从最优到最差。
 
