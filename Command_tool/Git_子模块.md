@@ -10,6 +10,20 @@ Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓�
 
 ## 开始使用子模块
 
+### 下载项目及子模块代码
+```bash
+$ git clone --recursive git://github.com/foo/bar.git
+```
+
+### 在已有项目中更下载更新子模块代码
+```bash
+$ git clone git://github.com/foo/bar.git
+$ cd bar
+$ git submodule update --init --recursive
+```
+
+
+
 我们首先将一个已存在的 Git 仓库添加为正在工作的仓库的子模块。 你可以通过在 `git submodule add` 命令后面加上想要跟踪的项目 URL 来添加新的子模块。 在本例中，我们将会添加一个名为 “**DbConnector**” 的库。
 
 	$ git submodule add https://github.com/chaconinc/DbConnector
@@ -21,7 +35,7 @@ Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓�
 	$ git status
 		new file:   .gitmodules
 		new file:   DbConnector
-
+	
 	$ cat .gitmodules
 	[submodule "DbConnector"]
 		path = DbConnector
@@ -102,7 +116,7 @@ Git 通过子模块来解决这个问题。 子模块允许你将一个 Git 仓�
 此命令默认会假定你想要更新并检出子模块仓库的 **master** 分支。 不过你也可以设置为想要的其他分支。 例如，你想要 **DbConnector** 子模块跟踪仓库的 “**stable**” 分支，那么既可以在 **.gitmodules** 文件中设置（这样其他人也可以跟踪它），也可以只在本地的 **.git/config** 文件中设置。 让我们在 **.gitmodules** 文件中设置它：
 
 	$ git config -f .gitmodules submodule.DbConnector.branch stable
-
+	
 	$ git submodule update --remote
 
 > 如果不用 `-f .gitmodules` 选项，那么它只会为你做修改。但是在仓库中保留跟踪信息更有意义一些，因为其他人也可以得到同样的效果。

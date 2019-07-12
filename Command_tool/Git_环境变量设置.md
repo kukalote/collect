@@ -72,13 +72,37 @@ user | signingkey | 如果你要创建经签署的含附注的标签,那么把�
 >正如以上例子设置的粗体属性，想要设置字体属性的话，可以选择如：bold、dim、ul、blink、reverse。
 
 
-示例 : 
+**示例 :** 
 
-    $ git config --global merge.tool vimdiff
-    $ git config --global alias.co checkout 
-    $ git config --global alias.br branch 
-    $ git config --global alias.ci commit 
-    $ git config --global alias.st status
-    $ git config --global user.signingkey <gpg-key-id>
-    $ git config --global color.ui true
-    $ git config --global color.diff.meta “blue black bold”
+```bash
+$ git config --global merge.tool vimdiff
+$ git config --global alias.co checkout 
+$ git config --global alias.br branch 
+$ git config --global alias.ci commit 
+$ git config --global alias.st status
+$ git config --global user.signingkey <gpg-key-id>
+$ git config --global color.ui true
+$ git config --global color.diff.meta “blue black bold”
+```
+
+**.gitconfig文件配置推荐**
+
+```bash
+	[user]
+		name = username
+		email = xxx.example.com
+	[alias]
+		co = checkout
+		ci = commit
+		st = status
+		df = diff
+		br = branch
+	[color]
+		ui = true
+	[credential]
+	# 密码短期保存
+		helper = cache
+	# 密码长期保存
+	# helper = store
+```
+

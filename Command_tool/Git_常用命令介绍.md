@@ -1,8 +1,38 @@
-### Git 常用命令介绍
+# Git 常用命令介绍
+
+### 常用命令
+
+1. 查看远程git地址
+
+   ```bash
+   git remote -v
+   ```
+
+2. 查看远程git版本库
+
+   ```bash
+   git remote show origin 
+   ```
+
+3. 提交前恢复文件内容
+
+   ```bash
+   git co file
+   ```
+
+4. 恢复未push的提交
+
+   ```bash
+   git reset file
+   ```
+
+   
+
+
 
 #### 配置仓库
 
-**`git config`** 可获得和设置仓库或全局选项
+##### **`git config`** 可获得和设置仓库或全局选项
 
 这里就要讲一下git的配置文件了: 
 
@@ -12,8 +42,7 @@
 `~/.gitconfig` 或 `~/.config/git/config` | `--global` | 只针对当前用户
 `.git/config`(Git 仓库目录中的config文件) | `--local` | 针对该仓库
 
-常用命令如下
-    
+常用命令如下    
     //配置全局选项
     $ git config --global user.name "shuimeng"
     $ git config --global user.email shuimeng@qq.com
@@ -28,27 +57,27 @@
     $ git config --global --unset user.name
     //或全部删除
     $ git config --global --unset-all
-    
+
 
 #### 获取或者创建项目
 
-**`git init`** 将一个目录初始化为 Git 仓库
+##### **`git init`** 将一个目录初始化为 Git 仓库
 
     $ git init //可以将一个目录初始化或重新初始化
-    
-**`git clone [url]`** 克隆现有的仓库
+
+##### **`git clone [url]`** 克隆现有的仓库
 
     $ git clone https://github.com/libgit2/libgit2 mylibgit
-    
+
 这会在当前目录下创建一个名为 “mylibgit” 的目录，并在这个目录下初始化一个 .git 文件夹，从远程仓库拉取下所有数据放入 .git 文件夹，然后从中读取最新版本的文件的拷贝。 如果你进入到这个新建的 mylibgit 文件夹，你会发现所有的项目文件已经在里面了
 
 #### 基础快照
 
-**`git add`** 将文件加入跟踪, 保证下次 commit 将文件移至暂存区。  
+##### **`git add`** 将文件加入跟踪, 保证下次 commit 将文件移至暂存区。  
 
 `git add` 默认会跳过被忽略的文件, 但也可以用 `-f` 选项指定提交忽略文件。
 
-**`git status`** 查看工作目录的状态
+##### **`git status`** 查看工作目录的状态
 
 `git status -s` 可以以简短格式 `[--short]` 格式显示
 
@@ -88,25 +117,24 @@ U        |  U  | unmerged, both modified
 常用选项 : 
 
     $ git commit -m 'msgs'
-    
+
 > 尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 git commit 加上 `-a` 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 `git add` 步骤
 
     $ git commit -a -m 'added new benchmarks'
-    
-**`git diff`** 显示提交版本之间的区别, 提交和副本之间的区别
+
+##### **`git diff`** 显示提交版本之间的区别, 提交和副本之间的区别
 
 要查看尚未暂存的文件更新了哪些部分，不加参数直接输入 `git diff`:
 
     $ git diff
 > 此命令比较的是工作目录中当前文件和暂存区域快照之间的差异， 也就是修改之后还没有暂存起来的变化内容。
-    
+
 若要查看已暂存的将要添加到下次提交里的内容，可以用 `git diff --cached` 命令。（Git 1.6.1 及更高版本还允许使用 `git diff --staged`，效果是相同的，但更好记些。）
 
     $ git diff --staged
 > 请注意，`git diff` 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。 所以有时候你一下子暂存了所有更新过的文件后，运行 `git diff` 后却什么也没有，就是这个原因。
 
-
-**`git rm`** 从暂存区移除文件
+##### **`git rm`** 从暂存区移除文件
 
 1. 要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 `git rm` 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。
 
@@ -128,7 +156,7 @@ U        |  U  | unmerged, both modified
 
     > 该命令为删除以 ~ 结尾的所有文件。
 
-**`git mv`** 移动文件
+##### **`git mv`** 移动文件
 
 
 当你看到 Git 的 mv 命令时一定会困惑不已。 要在 Git 中对文件改名，可以这么做：
@@ -142,7 +170,7 @@ U        |  U  | unmerged, both modified
     On branch master
     Changes to be committed:
       (use "git reset HEAD <file>..." to unstage)
-
+    
     renamed:    README.md -> README
 
 其实，运行 git mv 就相当于运行了下面三条命令：
@@ -155,8 +183,7 @@ U        |  U  | unmerged, both modified
 
 
 
-
-**`忽略文件`**
+##### **`忽略文件`**
 
 一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 `.gitignore` 的文件，列出要忽略的文件模式。 来看一个实际的例子：
 
@@ -169,13 +196,13 @@ U        |  U  | unmerged, both modified
 文件 `.gitignore` 的格式规范如下：
 
     所有空行或者以 ＃ 开头的行都会被 Git 忽略。
-
+    
     可以使用标准的 glob 模式匹配。
-
+    
     匹配模式可以以（/）开头防止递归。
-
+    
     匹配模式可以以（/）结尾指定目录。
-
+    
     要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。
 
 > 所谓的 glob 模式是指 shell 所使用的简化了的正则表达式。 星号（*）匹配零个或多个任意字符；[abc] 匹配任何一个列在方括号中的字符（这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）；问号（?）只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 [0-9] 表示匹配所有 0 到 9 的数字）。 使用两个星号（*) 表示匹配任意中间目录，比如a/**/z 可以匹配 a/z, a/b/z 或 a/b/c/z等。
