@@ -71,7 +71,6 @@ user | signingkey | 如果你要创建经签署的含附注的标签,那么把�
 >你能设置的颜色值如：normal、black、red、green、yellow、blue、magenta、cyan、white;  
 >正如以上例子设置的粗体属性，想要设置字体属性的话，可以选择如：bold、dim、ul、blink、reverse。
 
-
 **示例 :** 
 
 ```bash
@@ -104,5 +103,9 @@ $ git config --global color.diff.meta “blue black bold”
 		helper = cache
 	# 密码长期保存
 	# helper = store
+	[core]
+    quotepath = false
+    # 设置全局忽略文件
+    excludesfile = ~/.gitignore
 ```
 

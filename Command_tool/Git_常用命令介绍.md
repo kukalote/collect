@@ -26,7 +26,45 @@
    git reset file
    ```
 
+5. 创建分支
+
+   ```bash
+   git checkout -b iss53
    
+   # 这相当于执行下面这两条命令：
+   git branch iss53
+   git checkout iss53
+   ```
+   
+6. 查看日志
+
+  ```bash
+  # 查看版本文件列表
+  git log --stat 
+  # 查看文件修改
+  git log -p
+  ```
+
+7. 打标签
+
+   ```bash
+   # 标签列表
+   git tag -l
+   # 打标签
+   git tag -a v1.4 -m 'my version 1.4'
+   ```
+
+8. 合并分支
+
+   ```bash
+   # 合并v1.1分支到当前
+   git co dev
+   git merge v1.1 -m 'v1.1合并到dev'
+   ```
+
+   
+
+
 
 
 
