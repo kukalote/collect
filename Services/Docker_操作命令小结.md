@@ -1,7 +1,8 @@
 # docker 操作小结
 
-
 ## Docker 容器管理
+
+![](./images/docker-control.png)
 
 ####  在容器内运行一个应用程序
 ```bash
